@@ -1,10 +1,11 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-btn dark large v-on:click="full">FULL SCREEN</v-btn>
+    <v-col cols="12" sm="8" md="6" align="center" justify="center">
       <video controls id="myScreen">
         <source src="Donut.m4v" type="video/mp4" />
       </video>
+      <br/>
+      <v-btn dark large v-on:click="full">FULL SCREEN</v-btn>
     </v-col>
   </v-row>
 </template>
