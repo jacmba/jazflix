@@ -18,7 +18,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/png', href: 'https://fontmeme.com/permalink/210824/53a131e0396614b0fd10a53a4c44ce42.png' }
     ]
   },
 
