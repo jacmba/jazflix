@@ -12,10 +12,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nativescript/core": "8.0.8",
+    "@nuxtjs/axios": "5.13.6",
     "core-js": "^3.15.1",
+    "nativescript-vue": "2.9.0",
     "nuxt": "^2.15.7",
     "nuxt-video-player": "1.0.17",
-    "vuetify": "^2.5.5"
+    "vue-property-decorator": "9.1.2",
+    "vuetify": "^2.5.5",
+    "vuex": "3.6.2",
+    "vuex-module-decorators": "1.0.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
