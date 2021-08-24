@@ -5,11 +5,17 @@
       <source :src="'/' + name()" type="video/mp4" />
     </video>
     <br />
-    <v-btn dark large v-on:click="full">PANTALLA COMPLETA</v-btn>
+    <v-btn dark large v-on:click="full" v-focus>PANTALLA COMPLETA</v-btn>
   </div>
 </template>
 
 <script>
+const focus = {
+  inserted(el) {
+    el.focus()
+  }
+}
+
 export default {
   methods: {
     full() {
@@ -21,6 +27,8 @@ export default {
       return this.$route.params.name
     }
   },
+
+  directives: { focus }
 }
 </script>
 
