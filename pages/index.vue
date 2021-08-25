@@ -13,7 +13,7 @@
           :key="movie.title"
         >
           <nuxt-link :to="'/video/' + movie.video"
-            ><v-card max-height="300" max-width="200">
+            ><v-card>
               <v-img
                 :src="movie.image"
                 max-height="250"
