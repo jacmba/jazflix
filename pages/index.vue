@@ -25,6 +25,9 @@
           >
         </v-col>
       </v-row>
+      <br />
+      <hr />
+      <br />
     </div>
   </div>
 </template>
