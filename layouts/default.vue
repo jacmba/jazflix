@@ -9,10 +9,12 @@
     >
       <v-list>
         <v-list-item>
-          <v-img src="https://fontmeme.com/permalink/210824/53a131e0396614b0fd10a53a4c44ce42.png"></v-img>
+          <v-img
+            src="https://fontmeme.com/permalink/210824/53a131e0396614b0fd10a53a4c44ce42.png"
+          ></v-img>
         </v-list-item>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in sections"
           :key="i"
           :to="item.to"
           router
@@ -26,40 +28,39 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer >
+    </v-navigation-drawer>
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
+    <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }} Jacinto Mba</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-home',
-          title: 'Inicio',
-          to: '/'
-        }
-      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Vuetify.js',
     }
-  }
+  },
+
+  computed: {
+    ...mapGetters(['sections']),
+  },
+
+  mounted() {
+    this.$store.dispatch('fetchData')
+  },
 }
 </script>

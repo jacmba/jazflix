@@ -20,7 +20,7 @@ export default {
   methods: {
     full() {
       const elem = document.getElementById('myScreen')
-      elem.requestFullscreen('hide')
+      elem.requestFullscreen()
     },
 
     name() {

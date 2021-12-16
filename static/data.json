@@ -1,43 +1,59 @@
 {
-  "lorem": [
-    {
-      "title": "Donut",
-      "description": "El donut chachi que gira",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    },
-    {
-      "title": "Donut 2",
-      "description": "El donut chachi que gira otra vez",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    }
-  ],
+  "sections": [{
+    "icon": "mdi-home",
+    "title": "Inicio",
+    "to": "/"
+  }, {
+    "icon": "mdi-boxing-glove",
+    "title": "Sección 1",
+    "to": "/section/cat_1"
+  }, {
+    "icon": "mdi-comment-processing",
+    "title": "Sección 2",
+    "to": "/section/cat_2"
+  }],
+  "content": {
+    "lorem": [{
+        "title": "Donut",
+        "description": "El donut chachi que gira",
+        "image": "v.png",
+        "video": "Donut.m4v"
+      },
+      {
+        "title": "Donut 2",
+        "description": "El donut chachi que gira otra vez",
+        "image": "v.png",
+        "video": "Donut.m4v",
+        "extra": ["cat_1"]
+      }
+    ],
 
-  "ipsum": [
-    {
-      "title": "Donut 3",
-      "description": "El donut chachi que gira 3",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    },
-    {
-      "title": "Donut 4",
-      "description": "El donut chachi que gira otra vez más",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    },
-    {
-      "title": "Donut 5",
-      "description": "El donut chachi que gira 5",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    },
-    {
-      "title": "Donut 6",
-      "description": "El donut chachi que gira fleje",
-      "image": "v.png",
-      "video": "Donut.m4v"
-    }
-  ]
+    "ipsum": [{
+        "title": "Donut 3",
+        "description": "El donut chachi que gira 3",
+        "image": "v.png",
+        "video": "Donut.m4v",
+        "extra": ["cat_1"]
+      },
+      {
+        "title": "Donut 4",
+        "description": "El donut chachi que gira otra vez más",
+        "image": "v.png",
+        "video": "Donut.m4v",
+        "extra": ["cat_1", "cat_2"]
+      },
+      {
+        "title": "Donut 5",
+        "description": "El donut chachi que gira 5",
+        "image": "v.png",
+        "video": "Donut.m4v"
+      },
+      {
+        "title": "Donut 6",
+        "description": "El donut chachi que gira fleje",
+        "image": "v.png",
+        "video": "Donut.m4v"
+      }
+    ]
+  }
 }
