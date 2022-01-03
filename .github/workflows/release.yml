@@ -10,14 +10,11 @@ jobs:
     name: Get release version
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get_version.outputs.substring }}
+      version: ${{ steps.get_version.outputs.version-without-v }}
     steps:
       - name: Get release version
         id: get_version
-        uses: bhowell2/github-substring-action@v1.0.0
-        with:
-          value: ${{ github.ref }}
-          index_of_str: 'refs/heads/release'
+        uses: battila7/get-version-action@v2
 
   release:
     name: Build ${{ github.ref }}
@@ -47,6 +44,7 @@ jobs:
           body: ${{ steps.create_changelog.outputs.changelog }}
 
   build:
+    name: Build image and push to Docker HUB
     runs-on: ${{ matrix.os }}
 
     strategy:
