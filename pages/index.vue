@@ -1,16 +1,23 @@
 <template>
   <div>
+    <v-text-field
+      v-model="search"
+      label="Búsqueda"
+      placeholder="Búsqueda"
+      outlined
+      style="width: 50%; align: right"
+    ></v-text-field>
     <div v-for="cat in categories" :key="cat">
       <h1>{{ cat }}</h1>
       <v-row justify="center" align="center">
         <v-col
+          v-for="movie in filtered[cat]"
+          :key="movie.title"
           cols="12"
           sm="8"
           md="6"
           align="center"
           justify="center"
-          v-for="movie in data[cat]"
-          :key="movie.title"
         >
           <nuxt-link :to="'/video/' + movie.video"
             ><v-card>
@@ -36,12 +43,40 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  computed: {
-    ...mapGetters(['data', 'categories']),
+  data() {
+    return {
+      search: '',
+      data: {},
+      filtered: {},
+    }
   },
 
-  mounted() {
-    this.$store.dispatch('fetchData')
+  computed: {
+    ...mapGetters(['categories']),
+  },
+
+  watch: {
+    search(val) {
+      const data = this.data
+      const search = val.toLowerCase()
+      this.filtered = this.categories.reduce((p, c) => {
+        const result = { ...p }
+        result[c] = data[c].filter(
+          (d) =>
+            search.length === 0 ||
+            d.title.toLowerCase().includes(search) ||
+            d.description.toLowerCase().includes(search)
+        )
+        return result
+      }, data)
+    },
+  },
+
+  async mounted() {
+    await this.$store.dispatch('fetchData')
+    this.data = this.$store.state.data
+    this.filtered = this.data
+    this.categories = this.$store.state.categories
   },
 }
 </script>

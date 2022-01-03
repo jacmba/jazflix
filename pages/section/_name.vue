@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-text-field
+      v-model="search"
+      label="Búsqueda"
+      placeholder="Búsqueda"
+      outlined
+      style="width: 50%; align: right"
+    ></v-text-field>
     <v-row justify="center" align="center">
       <v-col
         v-for="movie in movies"
@@ -24,23 +31,39 @@
 
 <script>
 export default {
-  computed: {
-    movies() {
-      const extra = this.$route.params.name
-      const data = this.$store.state.data
-      const flatData = this.$store.state.categories
-        .map((c) => {
-          return data[c].filter((d) => d.extra && d.extra.includes(extra))
-        })
-        .filter((d) => d.length > 0)
-        .reduce((p, c) => [...p, ...c], [])
+  data() {
+    return {
+      search: '',
+      data: [],
+      movies: [],
+    }
+  },
 
-      return flatData
+  watch: {
+    search(val) {
+      const search = val.toLowerCase()
+      this.movies = this.data.filter(
+        (m) =>
+          search.length === 0 ||
+          m.title.toLowerCase().includes(search) ||
+          m.description.toLowerCase().includes(search)
+      )
     },
   },
 
-  mounted() {
-    this.$store.dispatch('fetchData')
+  async mounted() {
+    await this.$store.dispatch('fetchData')
+    const extra = this.$route.params.name
+    const data = this.$store.state.data
+    const flatData = this.$store.state.categories
+      .map((c) => {
+        return data[c].filter((d) => d.extra && d.extra.includes(extra))
+      })
+      .filter((d) => d.length > 0)
+      .reduce((p, c) => [...p, ...c], [])
+
+    this.data = flatData
+    this.movies = flatData
   },
 }
 </script>
