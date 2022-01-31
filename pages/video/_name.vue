@@ -1,7 +1,7 @@
 <template>
   <div justify="center" align="center">
     <video id="myScreen" controls autoplay>
-      <source :src="'http://server:9998/movies/' + name()" type="video/mp4" />
+      <source :src="name()" type="video/mp4" />
     </video>
     <br />
     <v-btn v-focus dark large @click="full">PANTALLA COMPLETA</v-btn>
@@ -24,7 +24,12 @@ export default {
     },
 
     name() {
-      return this.$route.params.name
+      return (
+        this.$store.state.api +
+        this.$store.state.moviesPath +
+        '/' +
+        this.$route.params.name
+      )
     },
   },
 }
