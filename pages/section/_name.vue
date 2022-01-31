@@ -17,7 +17,7 @@
         align="center"
         justify="center"
       >
-        <nuxt-link :to="'/video/' + movie.video"
+        <nuxt-link :to="'/video/' + movie.id"
           ><v-card>
             <v-img :src="movie.image" max-height="250" max-width="150"></v-img>
             <h1>{{ movie.title }}</h1>
@@ -55,12 +55,7 @@ export default {
     await this.$store.dispatch('fetchData')
     const extra = this.$route.params.name
     const data = this.$store.state.data
-    const flatData = this.$store.state.categories
-      .map((c) => {
-        return data[c].filter((d) => d.extra && d.extra.includes(extra))
-      })
-      .filter((d) => d.length > 0)
-      .reduce((p, c) => [...p, ...c], [])
+    const flatData = data.filter((d) => d.extra && d.extra.includes(extra))
 
     this.data = flatData
     this.movies = flatData
