@@ -60,7 +60,29 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/proxy'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    [
+      'nuxt-env',
+      {
+        keys: [
+          {
+            key: 'API_ADDRESS',
+            default: 'http://jazflix-api:3000/',
+          },
+          {
+            key: 'API_MOVIES_PATH',
+            default: 'movies',
+          },
+          {
+            key: 'API_SECTIONS_PATH',
+            default: 'sections',
+          },
+        ],
+      },
+    ],
+  ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -87,10 +109,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  env: {
-    apiAddress: process.env.API_ADDRESS || 'http://jazflix-api:3000/',
-    moviesPath: process.env.API_MOVIES_PATH || 'movies',
-    sectionsPath: process.env.API_SECTIONS_PATH || 'sections',
-  },
 }

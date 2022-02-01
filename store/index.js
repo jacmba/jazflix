@@ -1,15 +1,11 @@
 import axios from 'axios'
 
-const API_ADDRESS = process.env.apiAddress
-const MOVIES_PATH = process.env.moviesPath
-const SECTIONS_PATH = process.env.sectionsPath
-
 export const state = () => ({
   data: [],
   categories: [],
   sections: [],
-  api: API_ADDRESS,
-  moviesPath: MOVIES_PATH,
+  api: '',
+  moviesPath: '',
 })
 
 export const mutations = {
@@ -20,6 +16,14 @@ export const mutations = {
   setSections(state, data) {
     state.sections = data
   },
+
+  setApi(state, api) {
+    state.api = api
+  },
+
+  setMoviesPath(state, path) {
+    state.moviesPath = path
+  },
 }
 
 export const getters = {
@@ -29,6 +33,13 @@ export const getters = {
 
 export const actions = {
   async fetchData({ commit }) {
+    const API_ADDRESS = this.$env.API_ADDRESS
+    const MOVIES_PATH = this.$env.API_MOVIES_PATH
+    const SECTIONS_PATH = this.$env.API_SECTIONS_PATH
+
+    commit('setApi', API_ADDRESS)
+    commit('setMoviesPath', MOVIES_PATH)
+
     const movies = await axios.get(API_ADDRESS + MOVIES_PATH)
     const sections = await axios.get(API_ADDRESS + SECTIONS_PATH)
     commit('setData', movies.data)
