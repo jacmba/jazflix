@@ -6,6 +6,7 @@ export const state = () => ({
   sections: [],
   api: '',
   moviesPath: '',
+  auth: {},
 })
 
 export const mutations = {
@@ -23,6 +24,14 @@ export const mutations = {
 
   setMoviesPath(state, path) {
     state.moviesPath = path
+  },
+
+  login(state, auth) {
+    state.auth = auth
+  },
+
+  logout(state) {
+    state.aut = {}
   },
 }
 
