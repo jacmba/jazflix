@@ -58,6 +58,10 @@ export default {
   },
 
   async mounted() {
+    if (!this.$store.state.auth.token) {
+      this.$router.push('/login')
+    }
+
     await this.$store.dispatch('fetchData')
     this.data = this.$store.state.data
     this.filtered = this.data

@@ -7,6 +7,7 @@ export const state = () => ({
   api: '',
   moviesPath: '',
   auth: {},
+  fetched: false,
 })
 
 export const mutations = {
@@ -33,6 +34,10 @@ export const mutations = {
   logout(state) {
     state.aut = {}
   },
+
+  fetchDone(state) {
+    state.fetched = true
+  },
 }
 
 export const getters = {
@@ -41,7 +46,11 @@ export const getters = {
 }
 
 export const actions = {
-  async fetchData({ commit }) {
+  async fetchData({ commit, state }) {
+    if (state.fetched) {
+      return
+    }
+
     const API_ADDRESS = this.$env.API_ADDRESS
     const MOVIES_PATH = this.$env.API_MOVIES_PATH
     const SECTIONS_PATH = this.$env.API_SECTIONS_PATH
@@ -49,9 +58,14 @@ export const actions = {
     commit('setApi', API_ADDRESS)
     commit('setMoviesPath', MOVIES_PATH)
 
-    const movies = await axios.get(API_ADDRESS + MOVIES_PATH)
-    const sections = await axios.get(API_ADDRESS + SECTIONS_PATH)
+    const headers = {
+      authorization: 'Bearer ' + state.auth.token,
+    }
+
+    const movies = await axios.get(API_ADDRESS + MOVIES_PATH, { headers })
+    const sections = await axios.get(API_ADDRESS + SECTIONS_PATH, { headers })
     commit('setData', movies.data)
     commit('setSections', sections.data)
+    commit('fetchDone')
   },
 }

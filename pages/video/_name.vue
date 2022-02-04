@@ -17,6 +17,13 @@ const focus = {
 
 export default {
   directives: { focus },
+
+  mounted() {
+    if (!this.$store.state.auth.token) {
+      this.$router.push('/login')
+    }
+  },
+
   methods: {
     full() {
       const elem = document.getElementById('myScreen')
@@ -28,7 +35,9 @@ export default {
         this.$store.state.api +
         this.$store.state.moviesPath +
         '/' +
-        this.$route.params.name
+        this.$route.params.name +
+        '?token=' +
+        this.$store.state.auth.token
       )
     },
   },
