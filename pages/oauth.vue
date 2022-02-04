@@ -32,9 +32,10 @@ export default {
       const auth = await this.$axios.$get(
         this.$store.state.api + 'auth/token?code=' + code
       )
-      this.$store.commit('login', auth)
-
       const decoded = jwt.decode(auth.token)
+      auth.name = decoded.name
+      auth.picture = decoded.picture
+      this.$store.commit('login', auth)
       this.name = decoded.given_name
     } catch (e) {
       console.error(e)

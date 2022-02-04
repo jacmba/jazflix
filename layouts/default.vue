@@ -34,7 +34,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <div class="lower" v-if="isLogged()">
+        <v-img :src="getPicture()" class="avatar"></v-img>
+        <span class="centered">{{ getName() }}</span><br>
+        <span class="centered"><a @click="logout()">Cerrar sesión</a></span>
+      </div>
     </v-navigation-drawer>
+
     <v-main>
       <v-container>
         <Nuxt />
@@ -49,6 +56,25 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  methods: {
+    isLogged() {
+      return this.$store.state.auth && this.$store.state.auth.token
+    },
+
+    getName() {
+      return this.$store.state.auth.name
+    },
+
+    getPicture() {
+      return this.$store.state.auth.picture
+    },
+
+    logout() {
+      this.$store.commit('logout')
+      this.$router.push('/login')
+    }
+  },
+
   data() {
     return {
       clipped: false,
@@ -70,3 +96,25 @@ export default {
   },
 }
 </script>
+
+<style>
+.lower {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

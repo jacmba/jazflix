@@ -32,7 +32,15 @@ export const mutations = {
   },
 
   logout(state) {
-    state.aut = {}
+    Object.assign(state, {
+      data: [],
+      categories: [],
+      sections: [],
+      api: '',
+      moviesPath: '',
+      auth: {},
+      fetched: false,
+    })
   },
 
   fetchDone(state) {
