@@ -19,6 +19,7 @@
     "nativescript-vue": "2.9.0",
     "nuxt": "^2.15.7",
     "nuxt-env": "0.1.0",
+    "nuxt-logger": "0.2.0",
     "nuxt-video-player": "1.0.17",
     "vue-property-decorator": "9.1.2",
     "vuetify": "^2.5.5",

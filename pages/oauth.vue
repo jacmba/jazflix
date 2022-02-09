@@ -35,10 +35,11 @@ export default {
       const decoded = jwt.decode(auth.token)
       auth.name = decoded.name
       auth.picture = decoded.picture
+      auth.expiration = decoded.exp
       this.$store.commit('login', auth)
       this.name = decoded.given_name
     } catch (e) {
-      console.error(e)
+      this.$log.error(e)
       this.error = e
     }
   },

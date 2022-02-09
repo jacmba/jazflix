@@ -35,9 +35,10 @@
         </v-list-item>
       </v-list>
 
-      <div class="lower" v-if="isLogged()">
+      <div v-if="isLogged()" class="lower">
         <v-img :src="getPicture()" class="avatar"></v-img>
-        <span class="centered">{{ getName() }}</span><br>
+        <span class="centered">{{ getName() }}</span
+        ><br />
         <span class="centered"><a @click="logout()">Cerrar sesión</a></span>
       </div>
     </v-navigation-drawer>
@@ -56,25 +57,6 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  methods: {
-    isLogged() {
-      return this.$store.state.auth && this.$store.state.auth.token
-    },
-
-    getName() {
-      return this.$store.state.auth.name
-    },
-
-    getPicture() {
-      return this.$store.state.auth.picture
-    },
-
-    logout() {
-      this.$store.commit('logout')
-      this.$router.push('/login')
-    }
-  },
-
   data() {
     return {
       clipped: false,
@@ -93,6 +75,25 @@ export default {
 
   mounted() {
     this.$store.dispatch('fetchData')
+  },
+
+  methods: {
+    isLogged() {
+      return this.$store.state.auth && this.$store.state.auth.token
+    },
+
+    getName() {
+      return this.$store.state.auth.name
+    },
+
+    getPicture() {
+      return this.$store.state.auth.picture
+    },
+
+    logout() {
+      this.$store.commit('logout')
+      this.$router.push('/login')
+    },
   },
 }
 </script>

@@ -68,6 +68,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    'nuxt-logger',
     [
       'nuxt-env',
       {
@@ -114,4 +115,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  logger: {
+    isEnabled: true,
+    logLevel: 'debug',
+  },
 }
