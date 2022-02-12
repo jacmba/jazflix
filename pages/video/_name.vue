@@ -1,5 +1,5 @@
 <template>
-  <div justify="center" align="center">
+  <div v-if="videoToken" justify="center" align="center">
     <video id="myScreen" controls autoplay>
       <source :src="name()" type="video/mp4" />
     </video>
@@ -18,10 +18,25 @@ const focus = {
 export default {
   directives: { focus },
 
-  mounted() {
+  data() {
+    return {
+      videoToken: false,
+    }
+  },
+
+  async mounted() {
     if (!this.$store.state.auth.token) {
       this.$router.push('/login')
     }
+
+    // Get video token
+    const uri = this.$store.state.api + 'auth/video'
+    const headers = {
+      authorization: 'Bearer ' + this.$store.state.auth.token,
+    }
+
+    const token = await this.$axios.get(uri, { headers })
+    this.videoToken = token.data
   },
 
   methods: {
@@ -37,6 +52,8 @@ export default {
         '/' +
         this.$route.params.name +
         '?token=' +
+        this.videoToken +
+        '$$$$$' +
         this.$store.state.auth.token
       )
     },
