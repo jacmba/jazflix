@@ -13,6 +13,11 @@ const isStillValid = (exp) => {
   return now < exp - EXPIRATION_THRESHOLD
 }
 
+const isExpired = (exp) => {
+  const now = Math.floor(Date.now() / 1000)
+  return now > exp
+}
+
 export const state = () => ({
   data: [],
   categories: [],
@@ -90,6 +95,11 @@ export const actions = {
     }
 
     if (!isStillValid(state.auth.expiration)) {
+      if (isExpired(state.auth.expiration)) {
+        this.$log.debug('Sesion expired. Logging out')
+        commit('logout')
+      }
+
       this.$log.debug('Requesting new token')
       const newToken = await refreshToken(
         API_ADDRESS,

@@ -15,9 +15,7 @@
     >
       <v-list>
         <v-list-item>
-          <v-img
-            src="https://fontmeme.com/permalink/210824/53a131e0396614b0fd10a53a4c44ce42.png"
-          ></v-img>
+          <JazflixLogo />
         </v-list-item>
         <v-list-item
           v-for="(item, i) in sections"
@@ -73,8 +71,11 @@ export default {
     ...mapGetters(['sections']),
   },
 
-  mounted() {
-    this.$store.dispatch('fetchData')
+  async mounted() {
+    await this.$store.dispatch('fetchData')
+    if (!this.$store.state.auth.token) {
+      this.router.push('/login')
+    }
   },
 
   methods: {
