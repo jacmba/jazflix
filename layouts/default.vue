@@ -33,12 +33,7 @@
         </v-list-item>
       </v-list>
 
-      <div v-if="isLogged()" class="lower">
-        <v-img :src="getPicture()" class="avatar"></v-img>
-        <span class="centered">{{ getName() }}</span
-        ><br />
-        <span class="centered"><a @click="logout()">Cerrar sesión</a></span>
-      </div>
+      <LogoutCard class="lower" />
     </v-navigation-drawer>
 
     <v-main>
@@ -77,25 +72,6 @@ export default {
       this.router.push('/login')
     }
   },
-
-  methods: {
-    isLogged() {
-      return this.$store.state.auth && this.$store.state.auth.token
-    },
-
-    getName() {
-      return this.$store.state.auth.name
-    },
-
-    getPicture() {
-      return this.$store.state.auth.picture
-    },
-
-    logout() {
-      this.$store.commit('logout')
-      this.$router.push('/login')
-    },
-  },
 }
 </script>
 
@@ -104,8 +80,6 @@ export default {
   position: absolute;
   bottom: 0;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .avatar {
@@ -118,5 +92,6 @@ export default {
 .centered {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 </style>
