@@ -11,7 +11,7 @@ export default {
   },
 
   async mounted() {
-    if (!this.$store.state.auth.token) {
+    if (!this.$store.state.bypass && !this.$store.state.auth.token) {
       this.$router.push('/login')
     }
 

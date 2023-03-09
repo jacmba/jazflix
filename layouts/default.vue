@@ -68,7 +68,7 @@ export default {
 
   async mounted() {
     await this.$store.dispatch('fetchData')
-    if (!this.$store.state.auth.token) {
+    if (!this.$store.state.bypass && !this.$store.state.auth.token) {
       this.router.push('/login')
     }
   },

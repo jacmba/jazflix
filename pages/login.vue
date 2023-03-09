@@ -13,7 +13,7 @@
 <script>
 export default {
   mounted() {
-    if (this.$store.state.auth.token) {
+    if (this.$store.state.bypass || this.$store.state.auth.token) {
       this.$router.push({ name: '/' })
     }
   },

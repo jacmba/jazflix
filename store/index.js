@@ -26,6 +26,7 @@ export const state = () => ({
   moviesPath: '',
   auth: {},
   fetched: false,
+  bypass: false,
 })
 
 export const mutations = {
@@ -85,16 +86,23 @@ export const actions = {
     commit('setApi', API_ADDRESS)
     commit('setMoviesPath', MOVIES_PATH)
 
-    const headers = {
-      authorization: 'Bearer ' + state.auth.token,
+    if (!state.bypass) {
+      const bp = await axios.get(API_ADDRESS + 'auth/bypass');
+      this.$log.debug('Bypass result: ' + bp.data);
+      state.bypass = bp.data;
+      this.$log.debug('Type of the flag: ' + typeof state.bypass);
     }
 
-    if (!state.auth.token) {
+    if (!state.bypass && !state.auth.token) {
       this.$log.warn('Auth token not found. Skipping fetch')
       return
     }
 
-    if (!isStillValid(state.auth.expiration)) {
+    const headers = state.bypass ? {} : {
+      authorization: 'Bearer ' + state.auth.token,
+    }
+
+    if (!state.bypass && !isStillValid(state.auth.expiration)) {
       if (isExpired(state.auth.expiration)) {
         this.$log.debug('Sesion expired. Logging out')
         commit('logout')

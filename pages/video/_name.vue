@@ -25,18 +25,22 @@ export default {
   },
 
   async mounted() {
-    if (!this.$store.state.auth.token) {
+    if (!this.$store.state.bypass && !this.$store.state.auth.token) {
       this.$router.push('/login')
     }
 
     // Get video token
-    const uri = this.$store.state.api + 'auth/video'
-    const headers = {
-      authorization: 'Bearer ' + this.$store.state.auth.token,
-    }
+    if (!this.$store.state.bypass) {
+      const uri = this.$store.state.api + 'auth/video'
+      const headers = {
+        authorization: 'Bearer ' + this.$store.state.auth.token,
+      }
 
-    const token = await this.$axios.get(uri, { headers })
-    this.videoToken = token.data
+      const token = await this.$axios.get(uri, { headers })
+      this.videoToken = token.data
+    } else {
+      this.videoToken = 'bypassed'
+    }
   },
 
   methods: {
@@ -46,6 +50,7 @@ export default {
     },
 
     name() {
+      console.log('Requested name')
       return (
         this.$store.state.api +
         this.$store.state.moviesPath +
@@ -53,8 +58,7 @@ export default {
         this.$route.params.name +
         '?token=' +
         this.videoToken +
-        '$$$$$' +
-        this.$store.state.auth.token
+        (this.$store.state.bypass ? '' : '$$$$$' + this.$store.state.auth.token)
       )
     },
   },
